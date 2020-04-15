@@ -17,7 +17,7 @@ eOut=[]; % residual signal
 for n=1:size(seg,2)
     ySeg = seg(:,n);
     p = 12; %order
-    [a,g] = lpc(ySeg,12); % get LPC parameter and error variance
+    [a,g] = lpc(ySeg,p); % get LPC parameter and error variance
     e = filter(a,sqrt(g),ySeg); %compute error signal
     
     k=ws; % selection threshold
