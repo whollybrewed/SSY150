@@ -1,5 +1,6 @@
-close all
-clear all
+% For task 1, Task 2, and Task 3
+% ----------------------------------------------------
+close all; clear all;
 clc
 
 [y,Fs] = audioread('MySentence.wav');

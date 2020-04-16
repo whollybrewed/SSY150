@@ -1,12 +1,13 @@
-close all
+% Voice recorder
+%-----------------------------------------------
+close all; clear all;
 clc
-clear
 
 %record voice in .wav format
 
 Fs = 10000; %sampling rate
-duration = 15; %sec
-filename = 'MySentence.wav';
+duration = 2; %sec
+filename = 'MyVowel.wav';
 
 %16 bits/sample, single channel 
 recObj = audiorecorder(Fs,16,1); 
@@ -15,3 +16,5 @@ recordblocking(recObj,duration);
 disp('End of Recording.');
 myRecording = getaudiodata(recObj);
 audiowrite(filename,myRecording,Fs);
+plot(myRecording);
+title('Waveform');
