@@ -5,10 +5,10 @@ clc
 inputFile='Trees1.avi';
 outputFile='frm10.bmp';
 % compression ratio
-cmprRate=0.98;
+CR=0.98;
 [mov,frm]=aviread(inputFile);
 % convert frame into image
-frmIdx=10;
+frmIdx=19;
 iRGB=frame2im(mov(frmIdx));
 % RGB to grayscale
 iGray=rgb2gray(iRGB);
@@ -19,10 +19,7 @@ j=dct2(iRef);
 % save for plotting
 jTemp=j;
 % determine threshold and set zeroes  
-th=ceil(cmprRate*size(j,1)*size(j,2));
-jVec=j(:);
-jSort=sort(abs(jVec));
-j(abs(j)<jSort(th))=0;
+j=dctmask(j,CR);
 % inverse DCT
 iCmpr=idct2(j);
 % compute error
