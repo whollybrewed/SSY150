@@ -35,7 +35,7 @@ figure, colormap gray
 subplot(2,2,1);
 imshow(iRef), title('Original image'); 
 subplot(2,2,2);
-imshow(log(abs(jTemp)),[]), title('logscale DCT'); 
+imshow(jTemp), title('DCT coefficients'); 
 subplot(2,2,3);
 imshow(iCmpr), title('Compressed image'); 
 subplot(2,2,4);
