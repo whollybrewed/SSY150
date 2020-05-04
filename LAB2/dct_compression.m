@@ -3,7 +3,7 @@ clear all; close all;
 clc
 
 inputFile='Trees1.avi';
-outputFile='frm10.bmp';
+outputFile='frm19_dct.bmp';
 % compression ratio
 CR=0.98;
 [mov,frm]=aviread(inputFile);
