@@ -4,31 +4,39 @@ clc
 
 inputFile='Trees1.avi';
 [mov,frm]=aviread(inputFile);
-frmIdx=20;
+frmIdx=19;
 
+% normalize frame n
 iRGB=frame2im(mov(frmIdx));
 iGray=rgb2gray(iRGB);
 iOld=mat2gray(iGray);
 
+% normalize frame n+1
 iRGB=frame2im(mov(frmIdx+1));
 iGray=rgb2gray(iRGB);
 iNew=mat2gray(iGray);
 
+% set threshold hold
 th=32/255;
 iDiff=abs(iNew-iOld);
+% set zeros for motion < threshold
 for n=1:numel(iDiff)
     if iDiff(n)<th
         iDiff(n)=0;
     end
 end
+% function handle for motion detect
 motblock=@(block_struct)motdetect(block_struct.data);
+% 8*8 block process for motion detect
 iMot=blockproc(iDiff,[8 8],motblock);
-
+% function handle for motion compensation
 iframe=@(block_struct)motcompens(block_struct.data,iOld,iMot,...
                                  block_struct.location,...
                                  block_struct.blockSize,...
                                  block_struct.imageSize);
+% 8*8 block process for inter frame motion compensation                           
 i4=blockproc(iNew,[8 8],iframe);
+% intra mode copying
 i5=(~iMot.*iOld)+i4;
 
 e=abs(iNew-i5);
