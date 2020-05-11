@@ -1,4 +1,4 @@
-function dataTx = transmitter(imgTx)
+function dataTx = transmitter(imgTx,intrlvEnable)
 global m n k len codebook blksz cut scanOrder
 % compression rate
 cr=0.5;
@@ -51,10 +51,12 @@ packetGf=gf(packet,m);
 % RS encoding
 codeword=rsenc(packetGf,n,k);
 dataTx=codeword.x;
-% interleaving
-[Nrows,Ncols]=size(dataTx);
-dataTmp=reshape(dataTx',1,[]);
-dataIntrlv=matintrlv(dataTmp,Nrows,Ncols);
-dataTx=reshape(dataIntrlv,Ncols,Nrows)';
+if intrlvEnable==1
+    % interleaving
+    [Nrows,Ncols]=size(dataTx);
+    dataTmp=reshape(dataTx',1,[]);
+    dataIntrlv=matintrlv(dataTmp,Nrows,Ncols);
+    dataTx=reshape(dataIntrlv,Ncols,Nrows)';
+end
 
 end
