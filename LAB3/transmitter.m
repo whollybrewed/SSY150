@@ -52,5 +52,9 @@ packetGf=gf(packet,m);
 codeword=rsenc(packetGf,n,k);
 dataTx=codeword.x;
 % interleaving
-dataTx=matintrlv(dataTx',51,5)';
+[Nrows,Ncols]=size(dataTx);
+dataTmp=reshape(dataTx',1,[]);
+dataIntrlv=matintrlv(dataTmp,Nrows,Ncols);
+dataTx=reshape(dataIntrlv,Ncols,Nrows)';
+
 end

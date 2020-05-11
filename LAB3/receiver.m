@@ -1,11 +1,14 @@
 function imgRx = receiver(dataRx)
 global m n k len codebook blksz cut scanOrder
 % deinterkleaving
-dataTx=matdeintrlv(dataRx',51,5)';
+[Nrows,Ncols]=size(dataRx);
+dataTmp=reshape(dataRx',1,[]);
+dataDeintrlv=matdeintrlv(dataTmp,Nrows,Ncols);
+dataRx=reshape(dataDeintrlv,Ncols,Nrows)';
 % create Galois field array
-dataTxGf=gf(dataTx,m);
+dataRxGf=gf(dataRx,m);
 % RS decoding
-wordRx=rsdec(dataTxGf,n,k);
+wordRx=rsdec(dataRxGf,n,k);
 packetRx=wordRx.x';
 % depacketization
 msgRx=packetRx(:)';
