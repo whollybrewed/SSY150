@@ -1,7 +1,7 @@
 function imgRx = receiver(dataRx,intrlvEnable)
 global m n k len codebook blksz cut scanOrder
 if intrlvEnable==1
-    % deinterkleaving
+    % deinterleaving
     [Nrows,Ncols]=size(dataRx);
     dataTmp=reshape(dataRx',1,[]);
     dataDeintrlv=matdeintrlv(dataTmp,Nrows,Ncols);
