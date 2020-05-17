@@ -47,7 +47,7 @@ msg=cat(2,idx,zeros(1,padsize));
 % packetization
 packet=reshape(msg,k,[])';
 % create Galois field arrary
-packetGf=gf(packet,m);
+packetGf=gf(uint32(packet),m);
 % RS encoding
 codeword=rsenc(packetGf,n,k);
 dataTx=codeword.x;
